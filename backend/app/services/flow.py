@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "flow"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["监测编号", "监测断面", "监测时段"]
-STATUS_ORDER = ["待采集", "采集正常", "流量异常", "已停测"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"启动采集": "采集正常", "标记异常": "流量异常", "停止监测": "已停测"}
 NEGATIVE_ACTIONS = []
 

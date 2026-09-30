@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "defect"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["缺陷编号", "所在管段", "缺陷类别"]
-STATUS_ORDER = ["待定级", "已定级", "处置中", "已闭环"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"确认定级": "已定级", "提交闭环": "处置中", "挂起缺陷": "已闭环"}
 NEGATIVE_ACTIONS = []
 

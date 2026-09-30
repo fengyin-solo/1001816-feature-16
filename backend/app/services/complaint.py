@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "complaint"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["诉求编号", "诉求来源", "诉求内容"]
-STATUS_ORDER = ["待受理", "办理中", "已回复", "已关闭"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"受理诉求": "办理中", "提交回复": "已回复", "关闭诉求": "已关闭"}
 NEGATIVE_ACTIONS = []
 

@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "pipe"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["管段编号", "管道类别", "起点井号"]
-STATUS_ORDER = ["待移交", "正常运行", "重点观测", "封闭施工"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"办理移交": "正常运行", "标记观测": "重点观测", "封闭管段": "封闭施工"}
 NEGATIVE_ACTIONS = []
 

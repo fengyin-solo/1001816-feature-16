@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "manhole"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["井编号", "所在道路", "井盖类别"]
-STATUS_ORDER = ["待清掏", "正常使用", "井盖缺失", "已废弃"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"安排清掏": "正常使用", "确认正常": "井盖缺失", "废弃井室": "已废弃"}
 NEGATIVE_ACTIONS = []
 

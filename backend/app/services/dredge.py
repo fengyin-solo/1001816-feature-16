@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "dredge"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["清淤单号", "清淤管段", "淤积厚度"]
-STATUS_ORDER = ["待安排", "清淤中", "已完成", "已取消"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"安排清淤": "清淤中", "确认完成": "已完成", "取消清淤": "已取消"}
 NEGATIVE_ACTIONS = []
 

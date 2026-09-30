@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "pumpstation"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["泵站编号", "泵站名称", "服务区域"]
-STATUS_ORDER = ["待接管", "运行正常", "减量运行", "停运检修"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"办理接管": "运行正常", "标记减量": "减量运行", "安排检修": "停运检修"}
 NEGATIVE_ACTIONS = []
 

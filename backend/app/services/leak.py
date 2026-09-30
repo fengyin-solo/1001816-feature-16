@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "leak"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["排查编号", "排查区域", "排查方式"]
-STATUS_ORDER = ["待排查", "排查中", "已处置", "已排除"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"安排排查": "排查中", "确认处置": "已处置", "排除嫌疑": "已排除"}
 NEGATIVE_ACTIONS = []
 

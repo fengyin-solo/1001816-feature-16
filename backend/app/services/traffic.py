@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "traffic"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["许可编号", "申请单位", "占道位置"]
-STATUS_ORDER = ["待审批", "已批准", "施工中", "已恢复"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"提交审批": "已批准", "确认批准": "施工中", "确认恢复": "已恢复"}
 NEGATIVE_ACTIONS = []
 

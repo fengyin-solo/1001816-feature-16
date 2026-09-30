@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "equip"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["机械编号", "机械名称", "机械型号"]
-STATUS_ORDER = ["待保养", "可用", "保养中", "已报废"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"安排保养": "保养中", "确认可用": "可用", "报废机械": "已报废"}
 NEGATIVE_ACTIONS = []
 

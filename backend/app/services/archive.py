@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "archive"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["档案编号", "关联管段", "档案类别"]
-STATUS_ORDER = ["待归档", "已归档", "待补充", "已作废"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"提交归档": "已归档", "确认归档": "待补充", "作废档案": "已作废"}
 NEGATIVE_ACTIONS = ["作废档案"]
 

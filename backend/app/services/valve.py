@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "valve"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["阀门编号", "阀门类别", "所在管段"]
-STATUS_ORDER = ["待启闭", "操作正常", "启闭卡涩", "已停用"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"安排启闭": "操作正常", "确认正常": "启闭卡涩", "停用阀门": "已停用"}
 NEGATIVE_ACTIONS = ["停用阀门"]
 

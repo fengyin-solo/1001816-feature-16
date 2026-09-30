@@ -3,11 +3,13 @@ from __future__ import annotations
 
 from typing import Any
 
+from app.catalog import get_spec
 from app.store import store
 
 MODULE = "cctv"
+STATUS_SEQUENCE = tuple(get_spec(MODULE).statuses)
 REQUIRED_FIELDS = ["检测编号", "检测管段", "检测设备"]
-STATUS_ORDER = ["待检测", "检测中", "已出具", "已退回"]
+STATUS_ORDER = STATUS_SEQUENCE  # 状态序列统一取自 app.catalog（台账与概览同一份）
 ACTION_RULES = {"安排检测": "检测中", "确认出具": "已出具", "退回重检": "已退回"}
 NEGATIVE_ACTIONS = []
 
