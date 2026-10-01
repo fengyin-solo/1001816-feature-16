@@ -65,7 +65,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
-import { request } from '@/api/client'
+import { errorMessage as readErrorDetail, request, withAccount } from '@/api/client'
 
 type Row = Record<string, string | number | null>
 
@@ -87,7 +87,7 @@ function resetFilters() {
 }
 
 function exportRows() {
-  window.open(`${ENDPOINT}/export`, '_blank')
+  window.open(withAccount(`${ENDPOINT}/export`), '_blank')
 }
 
 function openCreate() {
@@ -102,7 +102,7 @@ async function runAction(action: string, row: Row) {
       body: JSON.stringify({ action }),
     })
     if (!response.ok) {
-      throw new Error('占道许可动作未生效，请稍后重试')
+      throw await readErrorDetail(response, '占道许可动作未生效，请稍后重试')
     }
     await reload()
   } catch (error) {
@@ -116,7 +116,7 @@ async function reload() {
   try {
     const response = await request(`${ENDPOINT}?${query}`)
     if (!response.ok) {
-      throw new Error('占道许可列表读取失败')
+      throw await readErrorDetail(response, '占道许可列表读取失败')
     }
     const payload = await response.json()
     rows.value = payload.items ?? []

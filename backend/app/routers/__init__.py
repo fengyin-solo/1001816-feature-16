@@ -24,5 +24,7 @@ from app.routers import traffic as router_traffic
 from app.routers import complaint as router_complaint
 from app.routers import fund as router_fund
 from app.routers import archive as router_archive
+from app.routers import overview as router_overview
 
-ROUTERS = [router_pipe, router_manhole, router_valve, router_pumpstation, router_patrol, router_defect, router_cctv, router_repair, router_pressure, router_flow, router_leak, router_dredge, router_material, router_equip, router_traffic, router_complaint, router_fund, router_archive]
+# 运营概览（含下钻、账号、历史留档）放在前面注册，避免与业务模块前缀产生歧义
+ROUTERS = [router_overview, router_pipe, router_manhole, router_valve, router_pumpstation, router_patrol, router_defect, router_cctv, router_repair, router_pressure, router_flow, router_leak, router_dredge, router_material, router_equip, router_traffic, router_complaint, router_fund, router_archive]
